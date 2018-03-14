@@ -11,9 +11,9 @@ To utilize this role, add it to the `requirements.yml` file inside the
 ansible folder:
 
 ```
-- src: git+https://github.com/magenta-aps/ansible-common-server-configuration.git
+- src: git+https://github.com/magenta-aps/ansible-role-common-server-configuration.git
   version: master
-  name: ansible-common-server-configuration
+  name: common-server-configuration
 ```
 
 Requirements
@@ -28,7 +28,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - ansible-common-server-configuration
+         - common-server-configuration
 
 License
 -------

@@ -1,19 +1,10 @@
 ---
 
-- name: Update and upgrade all packages
-  yum:
-    upgrade: full
-    update_cache: true
-  when: upgrade is defined and upgrade in ["true", "yes", "y"]
-  notify:
-    restart server
-  tags:
-    - upgrade
-
 - name: Install handy packages
   yum:
     name: "{{item}}"
-    state: present
+    state: latest
+    update_cache: yes
   with_items:
     - vim
     - less
@@ -24,7 +15,7 @@
 - name: Install ACL for RedHat 6 and RedHat 6 derivatives
   yum:
     name: acl
-    state: present
+    state: latest
   when: ansible_distribution_major_version == "6"
   tags:
     - acl
@@ -38,7 +29,7 @@
 - name: Install NTP
   yum:
     name: ntp
-    state: present
+    state: latest
 
 - name: Enable and start NTP
   service:

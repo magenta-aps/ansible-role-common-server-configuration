@@ -5,22 +5,13 @@
 - name: Install aptitude
   apt:
     name: aptitude
-    state: present
-
-- name: Update and upgrade all packages
-  apt:
-    upgrade: full
+    state: latest
     update_cache: true
-  when: upgrade is defined and upgrade in ["true", "yes", "y"]
-  notify:
-    restart server
-  tags:
-    - upgrade_server
 
 - name: Install handy and necessary packages
   apt:
     name: "{{ item }}"
-    state: present
+    state: latest
   with_items:
     - vim
     - nmap
@@ -44,4 +35,4 @@
 - name: Install ntp
   apt:
     name: ntp
-    state: present
+    state: latest
