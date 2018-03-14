@@ -1,0 +1,47 @@
+---
+
+- name: Update and upgrade all packages
+  yum:
+    upgrade: full
+    update_cache: true
+  when: upgrade is defined and upgrade in ["true", "yes", "y"]
+  notify:
+    restart server
+  tags:
+    - upgrade
+
+- name: Install handy packages
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - vim
+    - less
+    - nmap
+    - curl
+    - lsof
+
+- name: Install ACL for RedHat 6 and RedHat 6 derivatives
+  yum:
+    name: acl
+    state: present
+  when: ansible_distribution_major_version == "6"
+  tags:
+    - acl
+
+- name: Set locale
+  copy:
+    src: locale.conf
+    dest: /etc/locale.conf
+    mode: 0755
+
+- name: Install NTP
+  yum:
+    name: ntp
+    state: present
+
+- name: Enable and start NTP
+  service:
+    name: ntpd
+    enabled: yes
+    state: restarted
